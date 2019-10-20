@@ -91,7 +91,7 @@ public class Swifter {
     public typealias JSONSuccessHandler = (JSON, _ response: HTTPURLResponse) -> Void
     public typealias SearchResultHandler = (JSON, _ searchMetadata: JSON) -> Void
     public typealias FailureHandler = (_ error: Error) -> Void
-    
+	 public var isAuthenticated: Bool { return self.client.credential != nil }
     
     internal struct CallbackNotification {
         static let optionsURLKey = "SwifterCallbackNotificationOptionsURLKey"
@@ -114,6 +114,10 @@ public class Swifter {
             NotificationCenter.default.removeObserver(token)
         }
     }
+	
+	 public func signOut() {
+		 Credential.OAuthAccessToken.clearDefaultToken()
+	 }
     
     // MARK: - Initializers
     

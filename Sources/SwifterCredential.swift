@@ -31,7 +31,7 @@ import Accounts
 
 public class Credential {
     
-    public struct OAuthAccessToken {
+	public struct OAuthAccessToken: Codable {
         
         public internal(set) var key: String
         public internal(set) var secret: String
@@ -55,8 +55,26 @@ public class Credential {
             self.userID = attributes["user_id"]
         }
         
+		 public static var defaults = UserDefaults.standard
+		 
+		 public static func clearDefaultToken() {
+			self.defaults.removeObject(forKey: self.defaultTokenKey)
+		 }
+		 
+		 static let defaultTokenKey = "defaultTwitterOAuthToken"
+		 static var defaultToken: OAuthAccessToken? {
+			 get {
+				if let data = self.defaults.data(forKey: self.defaultTokenKey), let token = try? JSONDecoder().decode(self, from: data) { return token }
+				 return nil
+			 }
+			 
+			 set {
+				 if let data = try? JSONEncoder().encode(newValue) { self.defaults.set(data, forKey: self.defaultTokenKey) }
+			 }
+		 }
+		  
     }
-    
+	
     public internal(set) var accessToken: OAuthAccessToken?
     
     #if os(macOS) || os(iOS)
@@ -69,6 +87,7 @@ public class Credential {
     
     public init(accessToken: OAuthAccessToken) {
         self.accessToken = accessToken
+		  OAuthAccessToken.defaultToken = accessToken
     }
     
 }

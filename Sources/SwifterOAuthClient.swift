@@ -42,6 +42,9 @@ internal class OAuthClient: SwifterClientProtocol, SwifterAppProtocol {
     init(consumerKey: String, consumerSecret: String) {
         self.consumerKey = consumerKey
         self.consumerSecret = consumerSecret
+		  if let token = Credential.OAuthAccessToken.defaultToken {
+			 self.credential = Credential(accessToken: token)
+		  }
     }
     
     init(consumerKey: String, consumerSecret: String, accessToken: String, accessTokenSecret: String) {

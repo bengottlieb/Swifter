@@ -95,9 +95,14 @@ public extension Swifter {
                 requestToken.verifier = parameters["oauth_verifier"]
                 
                 self.postOAuthAccessToken(with: requestToken, success: { accessToken, response in
-                    self.client.credential = Credential(accessToken: accessToken!)
-                    success?(accessToken!, response)
-                    }, failure: failure)
+						if let token = accessToken {
+							self.client.credential = Credential(accessToken: token)
+							success?(token, response)
+						} else {
+							failure?(SwifterError(message: "Bad OAuth response received from server",
+							kind: .badOAuthResponse))
+						}
+					}, failure: failure)
             }
 			
 			let forceLogin = forceLogin ? "&force_login=true" : ""
