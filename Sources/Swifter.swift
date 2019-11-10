@@ -117,6 +117,7 @@ public class Swifter {
 	
 	 public func signOut() {
 		 Credential.OAuthAccessToken.clearDefaultToken()
+		 self.client.credential = nil
 	 }
     
     // MARK: - Initializers
