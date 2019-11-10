@@ -37,7 +37,7 @@ public extension Swifter {
     func getHelpConfiguration(success: SuccessHandler? = nil,
                               failure: FailureHandler? = nil) {
         let path = "help/configuration.json"
-        self.getJSON(path: path, baseURL: .api, parameters: [:], success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: [:], success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -50,7 +50,7 @@ public extension Swifter {
     func getHelpLanguages(success: SuccessHandler? = nil,
                           failure: FailureHandler? = nil) {
         let path = "help/languages.json"
-        self.getJSON(path: path, baseURL: .api, parameters: [:], success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: [:], success: { json, data, _ in
             success?(json)
         },failure: failure)
     }
@@ -63,7 +63,7 @@ public extension Swifter {
     func getHelpPrivacy(success: SuccessHandler? = nil,
                         failure: FailureHandler? = nil) {
         let path = "help/privacy.json"
-        self.getJSON(path: path, baseURL: .api, parameters: [:], success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: [:], success: { json, data, _ in
             success?(json["privacy"])
         }, failure: failure)
     }
@@ -76,7 +76,7 @@ public extension Swifter {
     func getHelpTermsOfService(success: SuccessHandler? = nil,
                                failure: FailureHandler? = nil) {
         let path = "help/tos.json"
-        self.getJSON(path: path, baseURL: .api, parameters: [:], success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: [:], success: { json, data, _ in
             success?(json["tos"])
         }, failure: failure)
     }
@@ -101,7 +101,7 @@ public extension Swifter {
                        failure: FailureHandler? = nil) {
         let path = "application/rate_limit_status.json"
         let parameters = ["resources": resources.joined(separator: ",")]
-        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }

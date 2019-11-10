@@ -48,7 +48,7 @@ public extension Swifter {
             parameters[userTag.key] = userTag.value
         }
         
-        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -81,7 +81,7 @@ public extension Swifter {
         parameters["include_rts"] ??= includeRTs
         parameters["tweet_mode"] ??= tweetMode.stringValue
         
-        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -104,7 +104,7 @@ public extension Swifter {
         }
         parameters[userTag.key] = userTag.value
         
-        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -128,7 +128,7 @@ public extension Swifter {
         parameters["cursor"] ??= cursor
         parameters["filter_to_owned_lists"] ??= filterToOwnedLists
         
-        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json["lists"], json["previous_cursor_str"].string, json["next_cursor_str"].string)
         }, failure: failure)
     }
@@ -155,7 +155,7 @@ public extension Swifter {
         parameters["include_entities"] ??= includeEntities
         parameters["skip_status"] ??= skipStatus
         
-        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in            
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json["users"], json["previous_cursor_str"].string, json["next_cursor_str"].string)
         }, failure: failure)
     }
@@ -177,7 +177,7 @@ public extension Swifter {
             parameters[owner.ownerKey] = owner.value
         }
         
-        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -204,7 +204,7 @@ public extension Swifter {
         parameters["include_entities"] ??= includeEntities
         parameters["skip_status"] ??= skipStatus
         
-        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in success?(json) }, failure: failure)
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in success?(json) }, failure: failure)
     }
     
     /**
@@ -223,7 +223,7 @@ public extension Swifter {
             parameters[owner.ownerKey] = owner.value
         }
         
-        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -253,7 +253,7 @@ public extension Swifter {
         parameters["include_entities"] ??= includeEntities
         parameters["skip_status"] ??= skipStatus
         
-        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -280,7 +280,7 @@ public extension Swifter {
         parameters["include_entities"] ??= includeEntities
         parameters["skip_status"] ??= skipStatus
         
-        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -308,7 +308,7 @@ public extension Swifter {
         parameters["include_entities"] ??= includeEntities
         parameters["skip_status"] ??= skipStatus
         
-        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json["users"], json["previous_cursor_str"].string, json["next_cursor_str"].string)
         }, failure: failure)
     }
@@ -331,7 +331,7 @@ public extension Swifter {
         }
         parameters[userTag.key] = userTag.value
         
-        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in success?(json) }, failure: failure)
+        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in success?(json) }, failure: failure)
     }
     
     /**
@@ -350,7 +350,7 @@ public extension Swifter {
             parameters[owner.ownerKey] = owner.value
         }
         
-        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -377,7 +377,7 @@ public extension Swifter {
         parameters["mode"] = isPublic ? "public" : "private"
         parameters["description"] ??= description
         
-        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in success?(json) }, failure: failure)
+        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in success?(json) }, failure: failure)
     }
     
     /**
@@ -397,7 +397,7 @@ public extension Swifter {
         parameters["mode"] = asPublicList ? "public" : "private"
         parameters["description"] ??= description
         
-        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -418,7 +418,7 @@ public extension Swifter {
             parameters[owner.ownerKey] = owner.value
         }
         
-        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -440,7 +440,7 @@ public extension Swifter {
         parameters["count"] ??= count
         parameters["cursor"] ??= cursor
         
-        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json["lists"], json["previous_cursor_str"].string, json["next_cursor_str"].string)
         }, failure: failure)
     }
@@ -465,7 +465,7 @@ public extension Swifter {
         }
         parameters[usersTag.key] = usersTag.value
         
-        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -487,7 +487,7 @@ public extension Swifter {
         parameters["count"] ??= count
         parameters["cursor"] ??= cursor
         
-        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in            
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json["lists"], json["previous_cursor_str"].string, json["next_cursor_str"].string)
         }, failure: failure)
         

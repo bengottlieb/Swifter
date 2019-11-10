@@ -35,7 +35,7 @@ public extension Swifter {
     func getSavedSearchesList(success: SuccessHandler? = nil,
                               failure: FailureHandler? = nil) {
         let path = "saved_searches/list.json"
-        self.getJSON(path: path, baseURL: .api, parameters: [:], success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: [:], success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -50,7 +50,7 @@ public extension Swifter {
                          failure: FailureHandler? = nil) {
         let path = "saved_searches/show/\(id).json"
         
-        self.getJSON(path: path, baseURL: .api, parameters: [:], success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: [:], success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -66,7 +66,7 @@ public extension Swifter {
         let path = "saved_searches/create.json"
         let parameters = ["query": query]
         
-        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -80,7 +80,7 @@ public extension Swifter {
                            success: SuccessHandler? = nil,
                            failure: FailureHandler? = nil) {
         let path = "saved_searches/destroy/\(id).json"
-        self.postJSON(path: path, baseURL: .api, parameters: [:], success: { json, _ in
+        self.postJSON(path: path, baseURL: .api, parameters: [:], success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }

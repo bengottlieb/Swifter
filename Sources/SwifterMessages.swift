@@ -38,7 +38,7 @@ public extension Swifter {
                           failure: FailureHandler? = nil) {
         let path = "direct_messages/events/show.json"
         let parameters = ["id": messageId]
-        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -56,7 +56,7 @@ public extension Swifter {
         var parameters: [String: Any] = [:]
         parameters["count"] ??= count
         parameters["cursor"] ??= cursor
-        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.getJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -71,7 +71,7 @@ public extension Swifter {
                               failure: FailureHandler? = nil) {
         let path = "direct_messages/events/destroy.json"
         let parameters = ["id": messageId]
-        self.deleteJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.deleteJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }
@@ -104,7 +104,7 @@ public extension Swifter {
             ]
         ]
         
-        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, _ in
+        self.postJSON(path: path, baseURL: .api, parameters: parameters, success: { json, data, _ in
             success?(json)
         }, failure: failure)
     }

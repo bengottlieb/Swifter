@@ -87,8 +87,9 @@ public class Swifter {
     // MARK: - Types
     
     public typealias SuccessHandler = (JSON) -> Void
+    public typealias DataSuccessHandler = (JSON, Data?) -> Void
     public typealias CursorSuccessHandler = (JSON, _ previousCursor: String?, _ nextCursor: String?) -> Void
-    public typealias JSONSuccessHandler = (JSON, _ response: HTTPURLResponse) -> Void
+    public typealias JSONSuccessHandler = (JSON, Data?, _ response: HTTPURLResponse) -> Void
     public typealias SearchResultHandler = (JSON, _ searchMetadata: JSON) -> Void
     public typealias FailureHandler = (_ error: Error) -> Void
 	 public var isAuthenticated: Bool { return self.client.credential != nil }
@@ -166,12 +167,12 @@ public class Swifter {
                 do {
                     let jsonResult = try JSON.parse(jsonData: data)
                     DispatchQueue.main.async {
-                        success?(jsonResult, response)
+                        success?(jsonResult, data, response)
                     }
                 } catch {
                     DispatchQueue.main.async {
                         if case 200...299 = response.statusCode, data.isEmpty {
-                            success?(JSON("{}"), response)
+                            success?(JSON("{}"), nil, response)
                         } else {
                             failure?(error)
                         }
@@ -211,7 +212,7 @@ public class Swifter {
                         return
                     }
                     chunkBuffer = nil
-                    handler?(jsonResult, response)
+                    handler?(jsonResult, data, response)
                 }
             }
         }
