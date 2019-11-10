@@ -88,6 +88,7 @@ public class Swifter {
     
     public typealias SuccessHandler = (JSON) -> Void
     public typealias DataSuccessHandler = (JSON, Data?) -> Void
+    public typealias TweetSuccessHandler = ([Tweet], Data?) -> Void
     public typealias CursorSuccessHandler = (JSON, _ previousCursor: String?, _ nextCursor: String?) -> Void
     public typealias JSONSuccessHandler = (JSON, Data?, _ response: HTTPURLResponse) -> Void
     public typealias SearchResultHandler = (JSON, _ searchMetadata: JSON) -> Void

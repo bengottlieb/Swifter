@@ -26,7 +26,7 @@
 import Foundation
 
 public extension Swifter {
-    
+	 enum TimelineError: Error { case noDataReturned }
     // Convenience method to help us get a timeline
     // per path and its parameters
     private func getTimeline(at path: String,
@@ -40,7 +40,7 @@ public extension Swifter {
                              contributorDetails: Bool? = nil,
                              includeEntities: Bool? = nil,
                              tweetMode: TweetMode = .default,
-                             success: DataSuccessHandler? = nil,
+                             success: TweetSuccessHandler? = nil,
                              failure: FailureHandler? = nil) {
         var params = parameters
         params["count"] ??= count
@@ -53,8 +53,18 @@ public extension Swifter {
         params["include_entities"] ??= includeEntities
         params["tweet_mode"] ??= tweetMode.stringValue
         
-        self.getJSON(path: path, baseURL: .api, parameters: params, success: { json, data, _ in
-            success?(json, data)
+        self.getJSON(path: path, baseURL: .api, parameters: params, success: { json, raw, _ in
+			guard let data = raw else {
+				failure?(TimelineError.noDataReturned)
+				return
+			}
+			
+			do {
+				let tweets = try Tweet.decoder.decode([Tweet].self, from: data)
+				success?(tweets, data)
+			} catch {
+				failure?(error)
+			}
         }, failure: failure)
     }
     
@@ -75,7 +85,7 @@ public extension Swifter {
                                    contributorDetails: Bool? = nil,
                                    includeEntities: Bool? = nil,
                                    tweetMode: TweetMode = TweetMode.default,
-                                   success: DataSuccessHandler? = nil,
+                                   success: TweetSuccessHandler? = nil,
                                    failure: FailureHandler?) {
         self.getTimeline(at: "statuses/mentions_timeline.json",
                          parameters: [:],
@@ -114,7 +124,7 @@ public extension Swifter {
                      contributorDetails: Bool? = nil,
                      includeEntities: Bool? = nil,
                      tweetMode: TweetMode = .default,
-                     success: DataSuccessHandler? = nil,
+                     success: TweetSuccessHandler? = nil,
                      failure: FailureHandler? = nil) {
         var parameters: [String: Any] = customParam
         parameters[userTag.key] = userTag.value
@@ -149,7 +159,7 @@ public extension Swifter {
                          contributorDetails: Bool? = nil,
                          includeEntities: Bool? = nil,
                          tweetMode: TweetMode = TweetMode.default,
-                         success: DataSuccessHandler? = nil,
+                         success: TweetSuccessHandler? = nil,
                          failure: FailureHandler? = nil) {
         self.getTimeline(at: "statuses/home_timeline.json",
                          parameters: [:],
@@ -176,7 +186,7 @@ public extension Swifter {
                          contributorDetails: Bool? = nil,
                          includeEntities: Bool? = nil,
                          tweetMode: TweetMode = .default,
-                         success: DataSuccessHandler? = nil,
+                         success: TweetSuccessHandler? = nil,
                          failure: FailureHandler? = nil) {
         self.getTimeline(at: "statuses/retweets_of_me.json",
                          parameters: [:],
