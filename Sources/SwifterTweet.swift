@@ -23,10 +23,10 @@ extension Swifter {
 		public var source = ""
 		public var user: User
 		public var lang = ""
-		public var favorite_count: Int64
-		public var retweet_count: Int64
+		public var favorite_count: UInt64
+		public var retweet_count: UInt64
 		public var favorited = false
-		public var id: Int64
+		public var id: UInt64
 		public var retweeted = false
 		public var possibly_sensitive: Bool? = false
 		public var text = ""
@@ -116,7 +116,7 @@ extension Swifter {
 				public var small: Size?
 				public var thumb: Size?
 				
-				struct Size: Codable {
+				public struct Size: Codable {
 					public var h: Int
 					public var w: Int
 					public var resize: String
