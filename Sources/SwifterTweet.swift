@@ -61,7 +61,7 @@ extension Swifter {
 			public var profile_use_background_image = false
 			public var screen_name: String? = ""
 			public var description: String? = ""
-			public var followed_by = false
+			public var followed_by: Bool? = false
 			public var notifications = false
 			public var contributors_enabled = false
 			public var followers_count = 0
